@@ -28,4 +28,13 @@ class User extends Entity
         'nom' => true,
         'prenom' => true
     ];
+
+    protected function _setPassword($value)
+    {
+        if (strlen($value)) {
+            $hasher = new DefaultPasswordHasher();
+
+            return $hasher->hash($value);
+        }
+    }
 }
