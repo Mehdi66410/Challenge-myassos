@@ -215,3 +215,11 @@ Type::build('timestamp')
 if (Configure::read('debug')) {
     Plugin::load('DebugKit', ['bootstrap' => true]);
 }
+if(is_file(APP . DS . '.env')) {
+    $vars = json_decode(file_get_contents(APP . DS . '.env'), true);
+    foreach ($vars as $name => $val) {
+        putenv("$name=$val");
+    }
+}
+
+Plugin::load('Migrations');
