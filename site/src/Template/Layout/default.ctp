@@ -1,4 +1,7 @@
 <?php
+use App\Controller\AppController;
+use Cake\ORM\Entity;
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -17,43 +20,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $this->fetch('title') ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
-
-    <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-</head>
-<body>
     
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
-</body>
-
-  <head>
-    <meta charset="utf-8">
-    <title>Old Movies</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le styles -->
-    <?php echo $this->Html->css('bootstrap.min');?>
-    <?php echo $this->fetch('css');?>   
-  </head>
-
-  <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container_header">
+    <div class="navbar navbar-inverse navbar-top">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -61,33 +34,59 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Old Movies</a>
+          <a class="brand" href="films">Old Movies</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#favoris">Favoris</a></li>
-              <li><a href="#Acteurs">Acteurs</a></li>
+            <li><?=  $this->Html->link('Home', array(
+    'controller' => 'Films',
+    'action' => 'index',
+));?><li>
+              <li><?=  $this->Html->link('Favoris', array(
+    'controller' => 'Films',
+    'action' => 'favoris',
+));?><li>
+              <li><?=  $this->Html->link('Acteurs', array(
+    'controller' => 'Films',
+    'action' => 'acteur',
+));?><li>
             </ul>
             <form class="navbar-form pull-right">
-              <input class="span2" type="text" placeholder="Username">
-              <input class="span2" type="password" placeholder="Password">
-                <?php      echo $this->Html->link(
-                        'Connexion',
-                        '/pages/home',
-                        ['class' => 'btn', 'target' => '_blank']
-                    );     
-                ?>       
+                <?= $this->Flash->render('auth') ?>
+                <?= $this->Form->create() ?>
+                <fieldset>
+                <?= $this->Form->input('username') ?> 
+                <?= $this->Form->input('password') ?>
+                </fieldset>
+                <li><?=  $this->Html->link('Connexion', array(
+    'controller' => 'Users',
+    'action' => 'login',
+));?><li>
+                <?= $this->Form->end() ?>
             </form>
           </div>
         </div>
       </div>
     </div>
+</div>
+</head>
+    <?= $this->Flash->render() ?>
+    <div class="container clearfix">
+        <?= $this->fetch('content') ?>
+    </div>
+    <footer>
+    </footer>
 
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le styles -->
+    <?php echo $this->Html->css('bootstrap.min');?>
+    <?php echo $this->fetch('css');?>   
+  </head>
 
     <?php echo $this->Html->script('bootstrap.min');?>
     <?php echo $this->fetch('script');?>
-
   </body>
 </html>
 
-</html>

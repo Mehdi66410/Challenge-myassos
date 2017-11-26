@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\User[] paginate($object = null, array $settings = [])
  */
-class UserController extends AppController
+class UsersController extends AppController
 {
 
     /**
@@ -24,6 +24,12 @@ class UserController extends AppController
 
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
+    }
+
+    public function initialize(){
+        parent::initialize();
+        $this->Auth->allow(['logout']);
+        $this->Auth->allow(['logout', 'add']);
     }
 
     /**
@@ -107,5 +113,24 @@ class UserController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function login(){
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                $this->Flash->success(__('The user has been connected.'));
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
+        }
+        $this->set(compact('user'));
+        $this->set('_serialize',['user']);
+
+    }
+    public function logout(){
+        $this->Flash->success('Vous avez été déconnecté.');
+        return $this->redirect($this->Auth->logout());
     }
 }

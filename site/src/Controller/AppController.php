@@ -48,8 +48,28 @@ class AppController extends Controller
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+        $this->loadComponent('Security');
+        $this->loadComponent('Csrf');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+             // Si pas autorisé, on renvoit sur la page précédente
+            'unauthorizedRedirect' => $this->referer()
+        ]);
+
+        // Permet à l'action "display" de notre PagesController de continuer
+        // à fonctionner. Autorise également les actions "read-only".
+        $this->Auth->allow(['display', 'view', 'index']);
     }
 
     /**

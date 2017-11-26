@@ -4,8 +4,9 @@
 use Cake\ORM\TableRegistry;
 $query = TableRegistry::get('acteurs')->find();
 ?>
-
-<h1>Films</h1>
+<div class="page-header">
+	<h1>Liste des films</h1>
+</div>
 <table>
     <tr>
         <th>Titre</th>
@@ -21,17 +22,19 @@ $query = TableRegistry::get('acteurs')->find();
             <?= $this->Html->link($film->titre, ['action' => 'view', $film->titre]) ?>
         </td>
         <td>
-            <?= $film->date_sortie->format(DATE_RFC850) ?>
+            <?= $film->date_sortie->format('Y-m-d') ?>
         </td>
         <td>
             <?php foreach ($query as $row) {
                 if($film->id_acteur==$row->id_acteur)
-                    echo "$row->nom "."$row->prenom";
+                    echo "$row->prenom "."$row->nom";
             }
             ?>
         </td>
     </tr>
     <?php endforeach; ?>
+    <?= $this->Html->link('Ajouter un film', ['action' => 'add']) ?>
+
         
     
 </table>
