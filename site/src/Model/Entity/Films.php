@@ -7,8 +7,11 @@ use Cake\ORM\Entity;
 class Films extends Entity
 {
     protected $_accessible = [
-        '*' => true,
-        'id' => false,
-        
+        'id_film' => true,
+        'titre' =>true,
+        'id_acteur' => true,
+        'genre' => true,
+        'date_sortie' => true,
+        'duree' =>true
     ];
 }

@@ -55,7 +55,7 @@ use Cake\Auth\DefaultPasswordHasher;
               <?php 
                 $loguser = $this->request->session()->read('Auth.User');
                 if($loguser){
-                  echo "          <a class='brand'>
+                  echo "<a class='brand'>
 Bonjour ".$loguser['username']."</a>
                 <ul class='nav pull-right'>
                   <li>
