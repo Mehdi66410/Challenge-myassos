@@ -36,7 +36,11 @@ use Cake\Auth\DefaultPasswordHasher;
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="films">Old Movies</a>
+         <?=  $this->Html->link(
+    'Old Movies',
+    '/films/index',
+    array('class' => 'brand')
+);?>
           <div class="nav-collapse collapse">
             <ul class="nav">
             <li><?=  $this->Html->link('Home', array(
@@ -44,12 +48,12 @@ use Cake\Auth\DefaultPasswordHasher;
     'action' => 'index',
 ));?><li>
               <li><?=  $this->Html->link('Favoris', array(
-    'controller' => 'Films',
-    'action' => 'favoris',
+    'controller' => 'Favoris',
+    'action' => 'index',
 ));?><li>
               <li><?=  $this->Html->link('Acteurs', array(
-    'controller' => 'Films',
-    'action' => 'acteur',
+    'controller' => 'Acteurs',
+    'action' => 'index',
 ));?><li>
             </ul>
               <?php 
