@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
-
 use App\Controller\AppController;
-
+use Cake\Auth\DefaultPasswordHasher;
 /**
  * User Controller
  *
@@ -20,15 +19,14 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $user = $this->paginate($this->User);
+        $user = $this->paginate($this->Users);
 
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
     }
 
     public function initialize(){
-        parent::initialize();
-        $this->Auth->allow(['logout']);
+         parent::initialize();
         $this->Auth->allow(['logout', 'add']);
     }
 
@@ -41,7 +39,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->User->get($id, [
+        $user = $this->Users->get($id, [
             'contain' => []
         ]);
 
@@ -56,12 +54,11 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->User->newEntity();
+        $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            $user = $this->User->patchEntity($user, $this->request->getData());
-            if ($this->User->save($user)) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
@@ -79,12 +76,12 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $user = $this->User->get($id, [
+        $user = $this->Users->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->User->patchEntity($user, $this->request->getData());
-            if ($this->User->save($user)) {
+            $users = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -105,8 +102,8 @@ class UsersController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $user = $this->User->get($id);
-        if ($this->User->delete($user)) {
+        $user = $this->Users->get($id);
+        if ($this->Users->delete($users)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
@@ -116,19 +113,16 @@ class UsersController extends AppController
     }
 
     public function login(){
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                $this->Flash->success(__('The user has been connected.'));
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error('Votre identifiant ou votre mot de passe est incorrect.');
+    if ($this->request->is('post')) {
+        $user = $this->Auth->identify();
+        if ($user) {
+            $this->Auth->setUser($user);
+            return $this->redirect($this->Auth->redirectUrl());
         }
-        $this->set(compact('user'));
-        $this->set('_serialize',['user']);
-
+        $this->Flash->error('Your username or password is incorrect.');
     }
+}
+
     public function logout(){
         $this->Flash->success('Vous avez été déconnecté.');
         return $this->redirect($this->Auth->logout());

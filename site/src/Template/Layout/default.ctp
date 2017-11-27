@@ -3,7 +3,6 @@ use App\Controller\AppController;
 use App\Auth;
 
 use Cake\ORM\Entity;
-use Cake\Auth\DefaultPasswordHasher;
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -66,8 +65,13 @@ Bonjour ".$loguser['username']."</a>
                      ".$this->Html->link('Logout', array('controller' => 'Users','action' => 'logout')).";
                   <li>
                 </ul>";
+                  debug($loguser);
+
                 }else echo "<ul class='nav pull-right'>
                         <li> ".$this->Html->link('Login', array('controller' => 'Users','action' => 'login'
+    ))."
+                        <li>
+                        <li> ".$this->Html->link('Register', array('controller' => 'Users','action' => 'add'
     ))."
                         <li>
                       </ul>";

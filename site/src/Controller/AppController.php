@@ -51,12 +51,6 @@ class AppController extends Controller
         $this->loadComponent('Security');
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth', [
-            'Auth' => [
-                'loginRedirect' => [
-                    'controller' => 'films',
-                    'action' => 'index'
-                ]
-            ],
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -69,8 +63,9 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
+            
              // Si pas autorisé, on renvoit sur la page précédente
-            'unauthorizedRedirect' => $this->referer()
+            'authorize' => ['Controller']
         ]);
 
         // Permet à l'action "display" de notre PagesController de continuer
@@ -78,7 +73,17 @@ class AppController extends Controller
         $this->Auth->allow(['display', 'view', 'index']);
     }
 
-    /**
+   
+    public function isAuthorized($user){
+        // Admin peuvent accéder à chaque action
+        if (isset($user['id_user']) && $user['id_user'] === 1) {
+            return true;
+        }
+        // Par défaut refuser
+        return false;
+    }
+
+     /**
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
@@ -96,4 +101,6 @@ class AppController extends Controller
         }
         
     }
+
+
 }

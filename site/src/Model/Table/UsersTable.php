@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
-
+use Cake\Auth\DigestAuthenticate;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -17,7 +18,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
  */
-class UserTable extends Table
+class UsersTable extends Table
 {
 
     /**
@@ -30,7 +31,7 @@ class UserTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('user');
+        $this->setTable('users');
         $this->setDisplayField('id_user');
         $this->setPrimaryKey('id_user');
     }
@@ -77,5 +78,18 @@ class UserTable extends Table
         $rules->add($rules->isUnique(['username']));
 
         return $rules;
+    }
+
+    public function beforeSave(Event $event)
+    {
+        $entity = $event->getData('entity');
+
+        // Make a password for digest auth.
+        $entity->digest_hash = DigestAuthenticate::password(
+            $entity->username,
+            $entity->plain_password,
+            env('SERVER_NAME')
+        );
+        return true;
     }
 }

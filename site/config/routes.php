@@ -80,3 +80,10 @@ Router::scope('/', function (RouteBuilder $routes) {
  * how to customize the loading of plugin routes.
  */
 Plugin::routes();
+Router::prefix('admin', function ($routes) {
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
+    $routes->extensions(['json', 'xml']);
+    // All routes here will be prefixed with `/admin`
+    // And have the prefix => admin route element added.
+    $routes->fallbacks('DashedRoute');
+});

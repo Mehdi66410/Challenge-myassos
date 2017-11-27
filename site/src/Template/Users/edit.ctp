@@ -9,15 +9,15 @@
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $user->id_user],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id_user)]
+                ['action' => 'delete', $users->id_user],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $users->username)]
             )
         ?></li>
         <li><?= $this->Html->link(__('List User'), ['action' => 'index']) ?></li>
     </ul>
 </nav>
 <div class="user form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+    <?= $this->Form->create($users) ?>
     <fieldset>
         <legend><?= __('Edit User') ?></legend>
         <?php

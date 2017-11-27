@@ -11,7 +11,7 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property string $nom
  * @property string $prenom
  */
-class Users extends Entity
+class User extends Entity
 {
 
     /**
@@ -24,19 +24,21 @@ class Users extends Entity
      * @var array
      */
     protected $_accessible = [
-        'username' => true,
-        'password' =>true,
-        'nom' => true,
-        'prenom' => true
+        '*'=>true,
+        'id'=>false
     ];
 
-    protected function _setPassword($value)
-    {
+    protected $_hidden = [
+        'password'
+    ];
+
+    protected function _setPassword($value){
         if (strlen($value)) {
             $hasher = new DefaultPasswordHasher();
             return $hasher->hash($value);
         }
     }
+
 }
 
 
