@@ -63,6 +63,14 @@ class AppController extends Controller
                 'controller' => 'Users',
                 'action' => 'login'
             ],
+            'loginRedirect' => [
+                'controller' => 'Films',
+                'action' => 'accueil'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Films',
+                'action' => 'accueil'
+            ],
             
              // Si pas autorisé, on renvoit sur la page précédente
             'authorize' => ['Controller']

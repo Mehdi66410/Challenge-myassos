@@ -8,6 +8,13 @@ use Cake\Datasource\ConnectionManager;
 class FilmsController extends AppController{
 	public $uses=array('Post');
 
+
+    public function accueil(){
+        $this->loadComponent('Paginator');
+        $films = $this->Paginator->paginate($this->Films->find());
+        $this->set(compact('films'));
+    }
+
  	public function index(){
 		$this->loadComponent('Paginator');
         $films = $this->Paginator->paginate($this->Films->find());

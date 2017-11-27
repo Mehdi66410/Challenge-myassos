@@ -65,7 +65,17 @@ Bonjour ".$loguser['username']."</a>
                      ".$this->Html->link('Logout', array('controller' => 'Users','action' => 'logout')).";
                   <li>
                 </ul>";
-                  debug($loguser);
+                  if($loguser['id_user']===1){
+                    echo "<ul class='nav pull-right'>
+                  <li>
+                     ".$this->Html->link('Users', array('controller' => 'Users','action' => 'index')).";
+                  <li>
+                </ul>"."<ul class='nav pull-right'>
+                  <li>
+                     ".$this->Html->link('Films', array('controller' => 'Films','action' => 'index')).";
+                  <li>
+                </ul>";
+                  }
 
                 }else echo "<ul class='nav pull-right'>
                         <li> ".$this->Html->link('Login', array('controller' => 'Users','action' => 'login'
