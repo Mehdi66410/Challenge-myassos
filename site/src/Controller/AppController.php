@@ -51,6 +51,12 @@ class AppController extends Controller
         $this->loadComponent('Security');
         $this->loadComponent('Csrf');
         $this->loadComponent('Auth', [
+            'Auth' => [
+                'loginRedirect' => [
+                    'controller' => 'films',
+                    'action' => 'index'
+                ]
+            ],
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -88,5 +94,6 @@ class AppController extends Controller
         ) {
             $this->set('_serialize', true);
         }
+        
     }
 }

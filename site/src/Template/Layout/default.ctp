@@ -1,5 +1,7 @@
 <?php
 use App\Controller\AppController;
+use App\Auth;
+
 use Cake\ORM\Entity;
 use Cake\Auth\DefaultPasswordHasher;
 /**
@@ -50,19 +52,23 @@ use Cake\Auth\DefaultPasswordHasher;
     'action' => 'acteur',
 ));?><li>
             </ul>
-            <form class="navbar-form pull-right">
-                <?= $this->Flash->render('auth') ?>
-                <?= $this->Form->create() ?>
-                <fieldset>
-                <?= $this->Form->input('username') ?> 
-                <?= $this->Form->input('password') ?>
-                </fieldset>
-                <li><?=  $this->Html->link('Connexion', array(
-    'controller' => 'Users',
-    'action' => 'login',
-));?><li>
-                <?= $this->Form->end() ?>
-            </form>
+              <?php 
+                $loguser = $this->request->session()->read('Auth.User');
+                if($loguser){
+                  echo "          <a class='brand'>
+Bonjour ".$loguser['username']."</a>
+                <ul class='nav pull-right'>
+                  <li>
+                     ".$this->Html->link('Logout', array('controller' => 'Users','action' => 'logout')).";
+                  <li>
+                </ul>";
+                }else echo "<ul class='nav pull-right'>
+                        <li> ".$this->Html->link('Login', array('controller' => 'Users','action' => 'login'
+    ))."
+                        <li>
+                      </ul>";
+              ?>
+            </ul>
           </div>
         </div>
       </div>
