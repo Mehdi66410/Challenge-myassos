@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 /**
  * Favoris Controller
@@ -50,18 +52,18 @@ class FavorisController extends AppController
      */
     public function add()
     {
-        $favori = $this->Favoris->newEntity();
-        if ($this->request->is('post')) {
-            $favori = $this->Favoris->patchEntity($favori, $this->request->getData());
-            if ($this->Favoris->save($favori)) {
-                $this->Flash->success(__('The favori has been saved.'));
+        $user=intval($this->request->getQuery('user'));
+        $film=intval($this->request->getQuery('film'));
+        $favorisTable = TableRegistry::get('Favoris');
+        $favoris = $favorisTable->newEntity();
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The favori could not be saved. Please, try again.'));
-        }
-        $this->set(compact('favori'));
-        $this->set('_serialize', ['favori']);
+        $favoris->id_user = $user;
+
+        $favoris->id_film = $film;
+
+        $favorisTable->save($favoris);
+        return $this->redirect(array("controller" => "Films", 
+                      "action" => "accueil"));
     }
 
     /**
@@ -107,5 +109,12 @@ class FavorisController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    
+
+    public function beforeFilter(Event $event){
+        // allow only login, forgotpassword
+         $this->Auth->allow(['Favoris', 'add']);
     }
 }

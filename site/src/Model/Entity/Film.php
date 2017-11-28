@@ -4,7 +4,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Films extends Entity
+class Film extends Entity
 {
     protected $_accessible = [
         'id_film' => true,

@@ -29,7 +29,8 @@ class FavorisTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
+        $this->belongsTo('Users')->setForeignKey('id_user');
+        $this->belongsTo('Films')->setForeignKey('id_film');
         $this->setTable('favoris');
         $this->setDisplayField('id_favoris');
         $this->setPrimaryKey('id_favoris');

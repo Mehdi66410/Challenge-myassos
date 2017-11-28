@@ -38,4 +38,5 @@ class AppView extends View
     {
         //$this->loadHelper('Form', ['className' => 'AdminLTE.Form']);
     }
+
 }

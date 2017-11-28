@@ -2,7 +2,12 @@
 
 <?php
 use Cake\ORM\TableRegistry;
+use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
+use Cake\Routing\Route\DashedRoute;
+use Cake\Event\Event;
 $query = TableRegistry::get('acteurs')->find();
+$loguser = $this->request->session()->read('Auth.User');
 ?>
 <div class="page-header">
 	<h1>Liste des films</h1>
@@ -12,16 +17,17 @@ $query = TableRegistry::get('acteurs')->find();
         <th>Titre</th>
         <th>Créé le</th>
         <th>Acteur principal</th>
+        <th>Action</th>
     </tr>
 
     <!-- C'est ici que nous bouclons sur notre objet Query $articles pour afficher les informations de chaque article -->
-
     <?php foreach ($films as $film): ?>
     <tr>
         <td>
             <?= $this->Html->link($film->titre, ['action' => 'view', $film->titre]) ?>
         </td>
-        <td>
+        
+       <td>
             <?= $film->date_sortie->format('Y-m-d') ?>
         </td>
         <td>
@@ -31,10 +37,25 @@ $query = TableRegistry::get('acteurs')->find();
             }
             ?>
         </td>
+        <td>
+        <?php
+            $user = 'null';
+            if($loguser['id_user']){
+                $user=$loguser['id_user'];
+                echo "<li>".$this->Html->link('Ajouter aux favoris', array(
+    'controller' => 'favoris',
+    'action' => 'add', 'user' => $user, 'film' => $film->id_film 
+))."</li>";
+            }else{
+                echo "Veuillez vous connecter pour pouvoir ajouter aux favoris";
+            }
+            
+         
+        ?>
+        
+        </td>
     </tr>
     <?php endforeach; ?>
-    <?= $this->Html->link('Ajouter un film', ['action' => 'add']) ?>
+            
 
-        
-    
 </table>

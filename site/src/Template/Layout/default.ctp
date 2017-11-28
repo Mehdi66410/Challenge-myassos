@@ -37,7 +37,7 @@ use Cake\ORM\Entity;
           </button>
          <?=  $this->Html->link(
     'Old Movies',
-    '/films/index',
+    '/films/accueil',
     array('class' => 'brand')
 );?>
           <div class="nav-collapse collapse">
@@ -86,6 +86,12 @@ Bonjour ".$loguser['username']."</a>
                         <li>
                       </ul>";
               ?>
+              <?php echo $this->Html->css('bootstrap.min');?>
+              <?php echo $this->fetch('css');?> 
+              <?php echo $this->Html->script('bootstrap.min');?>
+              <?php echo $this->fetch('script');?>
+              <?php echo $this->Html->script('jquery.min');?>
+              <?php echo $this->fetch('script');?>
             </ul>
           </div>
         </div>
@@ -93,24 +99,15 @@ Bonjour ".$loguser['username']."</a>
     </div>
 </div>
 </head>
+    <footer>
+
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
     </div>
-    <footer>
+      <!-- Le styles -->
+    
     </footer>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Le styles -->
-    <?php echo $this->Html->css('bootstrap.min');?>
-    <?php echo $this->fetch('css');?>   
-  </head>
-
-    <?php echo $this->Html->script('bootstrap.min');?>
-    <?php echo $this->fetch('script');?>
-  </body>
 </html>
 
