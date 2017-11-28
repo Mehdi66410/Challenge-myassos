@@ -73,7 +73,7 @@ class AppController extends Controller
             ],
             
              // Si pas autorisé, on renvoit sur la page précédente
-            'authorize' => ['Controller']
+            'authorize' => ['Films' => 'accueil']
         ]);
 
         // Permet à l'action "display" de notre PagesController de continuer

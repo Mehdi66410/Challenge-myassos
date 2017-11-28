@@ -3,7 +3,7 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
-
+use Cake\Event\Event;
 
 class FilmsController extends AppController{
 	public $uses=array('Post');
@@ -55,6 +55,11 @@ class FilmsController extends AppController{
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
 	}
+
+    public function beforeFilter(Event $event){
+        // allow only login, forgotpassword
+         $this->Auth->allow(['Films', 'accueil']);
+    }
 
 }
 ?>

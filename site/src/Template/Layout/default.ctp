@@ -44,7 +44,7 @@ use Cake\ORM\Entity;
             <ul class="nav">
             <li><?=  $this->Html->link('Home', array(
     'controller' => 'Films',
-    'action' => 'index',
+    'action' => 'accueil',
 ));?><li>
               <li><?=  $this->Html->link('Favoris', array(
     'controller' => 'Favoris',
