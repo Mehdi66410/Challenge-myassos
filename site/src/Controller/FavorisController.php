@@ -107,10 +107,21 @@ class FavorisController extends AppController
         return $this->redirect(array("controller" => "Films", "action" => "accueil"));
     }
 
+    public function isAuthorized($user){
+        // Admin peuvent accéder à chaque action
+        if (isset($user['id_user']) && $user['id_user'] === 1) {
+            return true;
+        }
+
+        // Par défaut refuser
+        return false;
+    }
+
     
 
     public function beforeFilter(Event $event){
         // allow only login, forgotpassword
-         $this->Auth->allow(['Favoris', 'add']);
+        $this->Auth->deny(['edit','view']);
+        $this->Auth->allow(['add','delete']);
     }
 }

@@ -55,10 +55,20 @@ class FilmsController extends AppController{
         $this->set(compact('user'));
         $this->set('_serialize', ['user']);
 	}
+    public function isAuthorized($user){
+        // Admin peuvent accéder à chaque action
+        if (isset($user['id_user']) && $user['id_user'] === 1) {
+            return true;
+        }
+
+        // Par défaut refuser
+        return false;
+    }
 
     public function beforeFilter(Event $event){
-        // allow only login, forgotpassword
-         $this->Auth->allow(['Films', 'accueil']);
+         $this->Auth->deny(['edit','index']);
+        $this->Auth->allow(['add','delete','accueil']);
+
     }
 
 }

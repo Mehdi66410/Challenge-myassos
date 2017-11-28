@@ -57,13 +57,11 @@ $loguser = $this->request->session()->read('Auth.User');
             }else{
                 echo "Veuillez vous connecter";
             }
-            
-         
         ?>
         
         </td>
     </tr>
     <?php endforeach; ?>
-            
+    
 
 </table>

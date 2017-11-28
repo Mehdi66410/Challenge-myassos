@@ -74,7 +74,12 @@ Bonjour ".$loguser['username']."</a>
                   <li>
                      ".$this->Html->link('Films', array('controller' => 'Films','action' => 'index')).";
                   <li>
+                </ul></ul>"."<ul class='nav pull-right'>
+                  <li>
+                     ".$this->Html->link('Acteurs', array('controller' => 'Acteurs','action' => 'index')).";
+                  <li>
                 </ul>";
+
                   }
 
                 }else echo "<ul class='nav pull-right'>

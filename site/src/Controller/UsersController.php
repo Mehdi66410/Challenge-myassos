@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
+use Cake\Event\Event;
+
 use Cake\Auth\DefaultPasswordHasher;
 /**
  * User Controller
@@ -126,5 +128,21 @@ class UsersController extends AppController
     public function logout(){
         $this->Flash->success('Vous avez été déconnecté.');
         return $this->redirect($this->Auth->logout());
+    }
+
+    public function beforeFilter(Event $event){
+        // allow only login, forgotpassword
+         $this->Auth->deny(['delete','edit','add','index','view']);
+         $this->Auth->allow(['login','register','login']);
+    }
+
+    public function isAuthorized($user){
+        // Admin peuvent accéder à chaque action
+        if (isset($user['id_user']) && $user['id_user'] === 1) {
+            return true;
+        }
+
+        // Par défaut refuser
+        return false;
     }
 }

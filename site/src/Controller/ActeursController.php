@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
 
 
 class ActeursController extends AppController{
@@ -25,6 +26,33 @@ class ActeursController extends AppController{
             $this->Flash->error(__('Impossible d\'ajouter cet acteur.'));
         }
         $this->set('acteurs', $acteurs);
+    }
+
+    public function edit(){
+
+    }
+
+    public function delete(){
+
+    }
+
+    public function view(){
+        
+    }
+
+    public function isAuthorized($user){
+        // Admin peuvent accéder à chaque action
+        if (isset($user['id_user']) && $user['id_user'] === 1) {
+            return true;
+        }
+
+        // Par défaut refuser
+        return false;
+    }
+
+    public function beforeFilter(Event $event){
+        // allow only login, forgotpassword
+        $this->Auth->deny(['delete','edit','add','view']);
     }
 
 }
