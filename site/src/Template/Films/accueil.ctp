@@ -2,8 +2,7 @@
 
 <?php
 use Cake\ORM\TableRegistry;
-use Cake\Routing\RouteBuilder;
-use Cake\Routing\Router;
+
 use Cake\Routing\Route\DashedRoute;
 use Cake\Event\Event;
 $query = TableRegistry::get('acteurs')->find();
@@ -42,12 +41,21 @@ $loguser = $this->request->session()->read('Auth.User');
             $user = 'null';
             if($loguser['id_user']){
                 $user=$loguser['id_user'];
-                echo "<li>".$this->Html->link('Ajouter aux favoris', array(
+                $count = TableRegistry::get('favoris')->find();
+                $total = $count->where(['id_user' => $user,'id_film'=>$film->id_film])->count();
+                if($total==0){
+                    echo "<li>".$this->Html->link('Ajouter aux favoris', array(
     'controller' => 'favoris',
     'action' => 'add', 'user' => $user, 'film' => $film->id_film 
 ))."</li>";
+                }else if($total>0){
+                    echo "<li>".$this->Html->link('Supprimer des favoris', array(
+    'controller' => 'favoris',
+    'action' => 'delete', 'user' => $user, 'film' => $film->id_film 
+))."</li>";
+                }
             }else{
-                echo "Veuillez vous connecter pour pouvoir ajouter aux favoris";
+                echo "Veuillez vous connecter";
             }
             
          

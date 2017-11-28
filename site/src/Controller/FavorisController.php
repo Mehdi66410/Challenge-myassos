@@ -100,15 +100,11 @@ class FavorisController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $favori = $this->Favoris->get($id);
-        if ($this->Favoris->delete($favori)) {
-            $this->Flash->success(__('The favori has been deleted.'));
-        } else {
-            $this->Flash->error(__('The favori could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+        $user=intval($this->request->getQuery('user'));
+        $film=intval($this->request->getQuery('film'));
+        $favorisTable = TableRegistry::get('Favoris');
+        $favorisTable->deleteAll(['id_user'=>$user,'id_film'=>$film]);
+        return $this->redirect(array("controller" => "Films", "action" => "accueil"));
     }
 
     
