@@ -1,7 +1,5 @@
 # Challenge MyAssos
 
-Il est tout d'abord au préalable nécessaire d'avoir créé un environnement virtuel et d'avoir installé django.
-
 ### Installation des packages nécéssaire
 
 Pour naviguer sur le site vous devez installer les packages requis :
