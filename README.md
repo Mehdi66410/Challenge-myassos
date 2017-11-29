@@ -10,11 +10,13 @@ Pour naviguer sur le site vous devez installer les packages requis :
     php composer.phar install DANS LE DOSSIER CONTENANT composer.json
 
 
-### Créer la base de données
+### Créer la base de données et configuration de /config/app.php
 
 Il est nécessaire de créer la base de données :
 
-    Aller sur phpMyAdmin et importer le fichier challenge_myassos.sql
+    Configurer le fichier /config/app.php pour qu'il se connecte à votre base de données.
+    Aller sur phpMyAdmin et importer le fichier challenge_myassos.sql.
+    
     
 
 ### Démarrer le serveur
