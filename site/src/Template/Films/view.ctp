@@ -3,11 +3,17 @@
 use Cake\ORM\TableRegistry;
 
 $loguser = $this->request->session()->read('Auth.User');
-
+$acteurTable = TableRegistry::get('Acteurs')->find();
+        foreach($acteurTable as $acteur_) {
+            if($acteur_['id_acteur']==$films->id_acteur)
+                $acteur = $acteur_['nom']." ".$acteur_['prenom'];
+        }
 ?>
-<h1><?= h($films->titre) ?></h1>
-<p><?= h($films->genre) ?></p>
-<p><small>Créé le : <?= $films->date_sortie->format(DATE_RFC850) ?></small></p>
+<h1>Titre du film : <?= h($films->titre) ?></h1>
+<p>Genre : <?= h($films->genre) ?></p>
+<p>Sortie le : <?= $films->date_sortie->format('Y-m-d') ?></p>
+<p>Acteur principal : <?= $acteur ?>
+</p>
 <p><?php 
 	$user = 'null';
             if($loguser['id_user']){

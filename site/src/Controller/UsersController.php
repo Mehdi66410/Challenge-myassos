@@ -132,7 +132,7 @@ class UsersController extends AppController
 
     public function beforeFilter(Event $event){
         // allow only login, forgotpassword
-         $this->Auth->deny(['delete','edit','add','index','view']);
+         $this->Auth->deny(['delete','edit','index','view']);
          $this->Auth->allow(['login','register','login']);
     }
 

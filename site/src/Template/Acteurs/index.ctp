@@ -36,12 +36,13 @@ $loguser = $this->request->session()->read('Auth.User');
                 <td><?= h($acteur->prenom) ?></td>
                 <td><?= h($acteur->date_naissance) ?></td>
                 <td class="actions">
+                    
+                 <?= $this->Html->link(__('View '), ['action' => 'view', $acteur->id_acteur]);?>
                     <?php 
                         if($loguser['id_user']==1){
-                         echo $this->Html->link(__('View '), ['action' => 'view', $acteur->id_acteur]);
                          echo $this->Html->link(__('Edit '), ['action' => 'edit', $acteur->id_acteur]); 
                          echo $this->Form->postLink(__('Delete '), ['action' => 'delete', $acteur->id_acteur], ['confirm' => __('Are you sure you want to delete # {0}?', $acteur->id_acteur)]);
-                        }else echo "Admin requis";
+                        }
                     ?>
                 </td>
             </tr>

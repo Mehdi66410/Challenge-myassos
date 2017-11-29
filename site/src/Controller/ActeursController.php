@@ -86,7 +86,7 @@ class ActeursController extends AppController{
 
     public function beforeFilter(Event $event){
         // allow only login, forgotpassword
-        $this->Auth->deny(['delete','edit','add','view']);
+        $this->Auth->deny(['delete','edit','add']);
     }
 
 }
