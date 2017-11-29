@@ -63,7 +63,7 @@ $loguser = $this->request->session()->read('Auth.User');
                 $loguser = $this->request->session()->read('Auth.User');
                 if($loguser){
                   echo "<a class='brand'>
-Bonjour ".$loguser['username']."</a>
+Bienvenue ".$loguser['username']."</a>
                 <ul class='nav pull-right'>
                   <li>
                      ".$this->Html->link('Logout', array('controller' => 'Users','action' => 'logout')).";
@@ -97,10 +97,6 @@ Bonjour ".$loguser['username']."</a>
               ?>
               <?php echo $this->Html->css('bootstrap.min');?>
               <?php echo $this->fetch('css');?> 
-              <?php echo $this->Html->script('bootstrap.min');?>
-              <?php echo $this->fetch('script');?>
-              <?php echo $this->Html->script('jquery.min');?>
-              <?php echo $this->fetch('script');?>
             </ul>
           </div>
         </div>
@@ -115,7 +111,10 @@ Bonjour ".$loguser['username']."</a>
         <?= $this->fetch('content') ?>
     </div>
       <!-- Le styles -->
-    
+    <?php echo $this->Html->script('bootstrap.min');?>
+    <?php echo $this->fetch('script');?>
+    <?php echo $this->Html->script('jquery.min');?>
+    <?php echo $this->fetch('script');?>
     </footer>
 
 </html>
