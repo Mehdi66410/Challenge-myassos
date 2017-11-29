@@ -28,16 +28,50 @@ class ActeursController extends AppController{
         $this->set('acteurs', $acteurs);
     }
 
-    public function edit(){
+    public function edit($id){
+        $acteurs = $this->Acteurs->get($id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $acteurs = $this->Acteurs->patchEntity($acteurs, $this->request->getData());
+            if ($this->Acteurs->save($acteurs)) {
+                $this->Flash->success(__('The actor has been saved.'));
 
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The actor could not be saved. Please, try again.'));
+        }
+        $this->set(compact('acteurs'));
+        $this->set('_serialize', ['acteurs']);
     }
 
-    public function delete(){
+    /**
+     * Delete method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $acteur = $this->Acteurs->get($id);
+        if ($this->Acteurs->delete($acteur)) {
+            $this->Flash->success(__('The actor has been deleted.'));
+        } else {
+            $this->Flash->error(__('The actor could not be deleted. Please, try again.'));
+        }
 
+        return $this->redirect(['action' => 'index']);
     }
 
-    public function view(){
-        
+    public function view($id){
+        $acteur = $this->Acteurs->get($id, [
+            'contain' => []
+        ]);
+
+        $this->set('acteur', $acteur);
+        $this->set('_serialize', ['acteur']);
     }
 
     public function isAuthorized($user){

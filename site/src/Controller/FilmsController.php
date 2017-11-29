@@ -40,21 +40,41 @@ class FilmsController extends AppController{
     }
 
 	public function edit($titre){
-		$user = $this->Films->get($id, [
+		$films = $this->Films->get($titre, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->User->patchEntity($user, $this->request->getData());
-            if ($this->User->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $films = $this->Films->patchEntity($films, $this->request->getData());
+            if ($this->Films->save($films)) {
+                $this->Flash->success(__('The movie has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('The movie could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
-        $this->set('_serialize', ['user']);
+        $this->set(compact('films'));
+        $this->set('_serialize', ['films']);
 	}
+
+    /**
+     * Delete method
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function delete($id = null){
+        $this->request->allowMethod(['post', 'delete']);
+        $film= $this->Films->get($id);
+        if ($this->Films->delete($film)) {
+            $this->Flash->success(__('The movie has been deleted.'));
+        } else {
+            $this->Flash->error(__('The movie could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
     public function isAuthorized($user){
         // Admin peuvent accéder à chaque action
         if (isset($user['id_user']) && $user['id_user'] === 1) {

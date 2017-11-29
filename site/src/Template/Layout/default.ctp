@@ -24,6 +24,7 @@ use Cake\ORM\Entity;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('accueil.css') ?>
     <?= $this->fetch('css') ?>
     
     <div class="container_header">

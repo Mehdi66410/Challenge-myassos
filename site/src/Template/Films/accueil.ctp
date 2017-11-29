@@ -62,6 +62,4 @@ $loguser = $this->request->session()->read('Auth.User');
         </td>
     </tr>
     <?php endforeach; ?>
-    
-
 </table>
