@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+$loguser = $this->request->session()->read('Auth.User');
 
 ?>
 <!DOCTYPE html>
@@ -47,10 +48,12 @@ use Cake\ORM\Entity;
     'controller' => 'Films',
     'action' => 'accueil',
 ));?><li>
-              <li><?=  $this->Html->link('Favoris', array(
+              <li><?php
+              if(($loguser['id_user'])!=null){
+                  echo $this->Html->link('Favoris', array(
     'controller' => 'Favoris',
     'action' => 'index',
-));?><li>
+));}?><li>
               <li><?=  $this->Html->link('Acteurs', array(
     'controller' => 'Acteurs',
     'action' => 'index',

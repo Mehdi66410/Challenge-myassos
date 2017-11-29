@@ -18,7 +18,7 @@ $loguser = $this->request->session()->read('Auth.User');
         <th>Acteur principal</th>
         <th>Action</th>
     </tr>
-
+    
     <!-- C'est ici que nous bouclons sur notre objet Query $articles pour afficher les informations de chaque article -->
     <?php foreach ($films as $film): ?>
     <tr>

@@ -22,6 +22,10 @@ class FavorisController extends AppController
      */
     public function index()
     {
+        $loguser = $this->request->session()->read('Auth.User');
+        if($loguser['id_user']==null)
+            return $this->redirect(array("controller" => "Films", 
+                      "action" => "accueil"));
         $favoris = $this->paginate($this->Favoris);
 
         $this->set(compact('favoris'));
@@ -52,6 +56,7 @@ class FavorisController extends AppController
      */
     public function add()
     {
+        $loguser = $this->request->session()->read('Auth.User');
         $user=intval($this->request->getQuery('user'));
         $film=intval($this->request->getQuery('film'));
         $favorisTable = TableRegistry::get('Favoris');
@@ -61,7 +66,8 @@ class FavorisController extends AppController
 
         $favoris->id_film = $film;
 
-        $favorisTable->save($favoris);
+        if($loguser['id_user']!=null && $user!=null && $film!=null)
+            $favorisTable->save($favoris);
         return $this->redirect(array("controller" => "Films", 
                       "action" => "accueil"));
     }
