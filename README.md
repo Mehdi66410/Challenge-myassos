@@ -23,7 +23,7 @@ Aller sur MAMP/XAMPP/WAMP et démarrer le serveur
 
 ### Finalisation
 
-Le site est accessible via l'adresse dans l'url : localhost:PORT/challenge_myassos/site/
+Le site est accessible via l'adresse dans l'url : localhost:PORT/challenge_myassos_Mehdi/site/
 
 ### Quelques remarques
 
